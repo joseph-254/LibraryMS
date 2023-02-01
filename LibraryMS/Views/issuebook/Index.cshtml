@@ -1,0 +1,85 @@
+﻿
+
+<div class="row">
+    <div class="col-sm-4">
+        @using (Html.BeginForm("Save", "issuebook", FormMethod.Post))
+        {
+            <div>Book Issue</div>
+            <div class="form-group">
+                <label>Member Id</label>
+                <input type="text" id="member_id" name="member_id" class="form-control" placeholder="Member Id" required />
+            </div>
+            <div class="form-group">
+                <label>Member Name</label>
+                <input type="text" id="mname" name="mname" class="form-control" placeholder="Member Name" required />
+            </div>
+            <div class="form-group">
+                <label>Book</label>
+                <select class="form-control" id="book_id" name="book_id">
+                    <option>Please Select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Issue Date</label>
+                <input type="date" id="issuedate" name="issuedate" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label>Return Date</label>
+                <input type="date" id="returndate" name="returndate" class="form-control"  required />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    
+    <script>
+        getMid();
+        getBook();
+
+        function getMid()
+        {
+            $("#member_id").keyup(function (e) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/issuebook/GetMid?mid=' + $("#member_id").val(),
+                    dataType: 'JSON',
+                    success: function (data) {
+                        $("#mname").val(data);
+
+                    }
+                });
+            });
+
+        }
+
+        function getBook() {
+            
+                $.ajax({
+                    type: 'GET',
+                    url: '/issuebook/Getbook',
+                    dataType: 'JSON',
+                    success: function (data) {
+                        console.log(data);
+
+                        for (var i = 0; i < data.length; i++)
+                        {
+                            $("#book_id").append($("<option/>", {
+                                text: data[i].Bname
+                            }));
+                        }
+
+                    }
+                });
+           
+
+
+        }
+
+
+    </script>
+     
+    }

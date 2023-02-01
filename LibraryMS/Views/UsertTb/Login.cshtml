@@ -1,0 +1,59 @@
+﻿@model LibraryMS.Models.Usertable
+
+@{
+    ViewBag.Title = "Login";
+}
+
+@{ Layout = null;}
+
+<link href="@Url.Content("~/Content/assets/css/bootstrap.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/assets/css/paper-dashboard.css?v=2.0.1")" rel="stylesheet" />
+
+<div class="col-sm-4">
+    <div class="card">
+        <div class="card-body">
+
+
+            <h2>Login</h2>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    <h4>Usertable</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.userName, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.passWord, htmlAttributes: new { @class = "control-label col-md-8" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.passWord, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.passWord, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Login" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+
+    </div>
+</div>
